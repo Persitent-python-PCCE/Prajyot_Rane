@@ -10,7 +10,6 @@ hours = [
 
 cups = []
 
-
 for i in range(len(hours)):
     data = int(input(f"Enter the total cups sold at {hours[i]}: "))
     cups.append(data)

@@ -10,7 +10,7 @@ combine_to_find_Common2=g | o | v
 count=len(combine_to_find_Common2)
 inter=set.intersection(combine_to_find_Common)
 exactly_one=(g-o-v) | (o-g-v) | (v-g-o)
-print(inter)
-print(exactly_one)
-print(count)
+print(f"Contested by all three: ",inter)
+print(f"Controlled by exactly one: ",exactly_one)
+print(f"Distinct neighborhoods: ",count)
 

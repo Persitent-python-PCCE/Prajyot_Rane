@@ -12,6 +12,5 @@ led = award_points("Gryffindor")
 led = award_points("Gryffindor", 50,
 "defeating a troll", led)
 led = award_points("Slytherin", 30,ledger=led)
-
 print("Final Ledger:",led)
 

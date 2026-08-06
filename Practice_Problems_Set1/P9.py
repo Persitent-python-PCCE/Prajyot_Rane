@@ -1,7 +1,6 @@
 def create_hero(name, *powers, **stats):
     avg=0;
     print(f"Hero: {name}")
-    print("Powers:")
     print("Powers:",", ".join(powers))
     
     for key,value in stats.items():
