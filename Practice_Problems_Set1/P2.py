@@ -9,7 +9,7 @@ hours = [
 ]
 
 cups = []
-list_abov_avg = []
+
 
 for i in range(len(hours)):
     data = int(input(f"Enter the total cups sold at {hours[i]}: "))
