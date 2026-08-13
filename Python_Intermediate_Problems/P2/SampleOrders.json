@@ -1,0 +1,52 @@
+[
+    {
+        "order_id": 77,
+        "customer_id": 9694,
+        "product": "Laptop",
+        "quantity": 3,
+        "unit_price": 230.37790985577533,
+        "total_amount": 691.133729567326,
+        "status": "Delivered",
+        "order_date": "2026-06-08"
+    },
+    {
+        "order_id": 314,
+        "customer_id": 9504,
+        "product": "Laptop",
+        "quantity": 2,
+        "unit_price": 666.0084282035674,
+        "total_amount": 1332.0168564071348,
+        "status": "Cancelled",
+        "order_date": "2026-12-15"
+    },
+    {
+        "order_id": 572,
+        "customer_id": 4866,
+        "product": "Laptop",
+        "quantity": 4,
+        "unit_price": 850.7429430232177,
+        "total_amount": 3402.9717720928707,
+        "status": "Delivered",
+        "order_date": "2026-05-19"
+    },
+    {
+        "order_id": 11,
+        "customer_id": 7908,
+        "product": "Headphones",
+        "quantity": 2,
+        "unit_price": 718.3767128582006,
+        "total_amount": 1436.7534257164011,
+        "status": "Delivered",
+        "order_date": "2026-01-20"
+    },
+    {
+        "order_id": 887,
+        "customer_id": 9107,
+        "product": "Mobile Phone",
+        "quantity": 2,
+        "unit_price": 156.50140762570553,
+        "total_amount": 313.00281525141105,
+        "status": "Delivered",
+        "order_date": "2026-08-13"
+    }
+]
