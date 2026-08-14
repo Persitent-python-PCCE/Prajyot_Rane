@@ -7,7 +7,6 @@ def test_add_to_cart_success():
 
     # Fake product returned by ProductDao
     service.product_dao.get_product_by_id = lambda p_id: (3, "Lenovo LOQ", 70000, 10)
-
     added_item = []
 
     # Fake CartDao
