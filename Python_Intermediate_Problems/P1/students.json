@@ -1,0 +1,62 @@
+[
+    {
+        "StudentID": 1946,
+        "name": "viper",
+        "age": 19,
+        "department": "Electronics",
+        "marks": {
+            "Python": 38,
+            "Database": 82,
+            "Computer Networks": 62
+        },
+        "total": 182,
+        "average": 60.666666666666664,
+        "result": "Fail",
+        "exam-date": "2021-05-23"
+    },
+    {
+        "StudentID": 6366,
+        "name": "sage",
+        "age": 24,
+        "department": "Information Technology",
+        "marks": {
+            "Python": 1,
+            "Database": 33,
+            "Computer Networks": 51
+        },
+        "total": 85,
+        "average": 28.333333333333332,
+        "result": "Fail",
+        "exam-date": "2021-01-24"
+    },
+    {
+        "StudentID": 4152,
+        "name": "sova",
+        "age": 20,
+        "department": "Electronics",
+        "marks": {
+            "Python": 91,
+            "Database": 22,
+            "Computer Networks": 80
+        },
+        "total": 193,
+        "average": 64.33333333333333,
+        "result": "Fail",
+        "exam-date": "2021-01-31"
+    },
+    {
+        "StudentID": 3289,
+        "name": "breach",
+        "age": 24,
+        "department": "Information Technology",
+        "marks": {
+            "Python": 91,
+            "Database": 14,
+            "Computer Networks": 96
+        },
+        "total": 201,
+        "average": 67.0,
+        "result": "Fail",
+        "exam-date": "2021-03-31"
+    }
+]
