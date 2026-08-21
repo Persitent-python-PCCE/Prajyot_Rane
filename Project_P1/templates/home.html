@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>IT Service Desk</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='auth.css') }}"
+    >
+
+    <style>
+        .home-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .home-card {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 620px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            overflow: hidden;
+            border-radius: 24px;
+            background: white;
+            box-shadow: 0 25px 70px rgba(15, 23, 42, 0.12);
+        }
+
+        .home-left {
+            background: linear-gradient(145deg, #0f172a, #1e3a8a);
+            color: white;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .home-brand {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 35px;
+        }
+
+        .home-left h1 {
+            font-size: 52px;
+            line-height: 1.08;
+            margin-bottom: 22px;
+        }
+
+        .home-left p {
+            color: #cbd5e1;
+            font-size: 17px;
+            line-height: 1.7;
+            max-width: 550px;
+        }
+
+        .home-features {
+            margin-top: 35px;
+            display: grid;
+            gap: 14px;
+        }
+
+        .home-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #e2e8f0;
+        }
+
+        .check {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: rgba(59, 130, 246, 0.2);
+            color: #93c5fd;
+            font-weight: bold;
+        }
+
+        .home-right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+            background: #ffffff;
+        }
+
+        .home-content {
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+        }
+
+        .home-icon {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 24px;
+            border-radius: 20px;
+            background: #eff6ff;
+            color: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .home-content h2 {
+            font-size: 32px;
+            color: #111827;
+            margin-bottom: 10px;
+        }
+
+        .home-content p {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .home-button {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border-radius: 11px;
+            text-decoration: none;
+            font-weight: 700;
+            margin-bottom: 14px;
+            transition: 0.2s ease;
+        }
+
+        .home-button-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .home-button-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .home-button-secondary {
+            background: white;
+            color: #2563eb;
+            border: 1px solid #cbd5e1;
+        }
+
+        .home-button-secondary:hover {
+            background: #f8fafc;
+        }
+
+        .home-note {
+            margin-top: 25px;
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 900px) {
+
+            .home-card {
+                grid-template-columns: 1fr;
+            }
+
+            .home-left {
+                padding: 45px 35px;
+            }
+
+            .home-left h1 {
+                font-size: 40px;
+            }
+
+            .home-right {
+                padding: 40px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .home-page {
+                padding: 15px;
+            }
+
+            .home-left {
+                padding: 35px 25px;
+            }
+
+            .home-left h1 {
+                font-size: 34px;
+            }
+
+            .home-right {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="home-page">
+
+    <div class="home-card">
+
+        <!-- LEFT -->
+
+        <section class="home-left">
+
+            <div class="home-brand">
+                IT Service Desk
+            </div>
+
+            <h1>
+                Your IT support,
+                simplified.
+            </h1>
+
+            <p>
+                A centralized platform for reporting technical
+                issues, tracking incidents, communicating with
+                support agents, and managing IT services.
+            </p>
+
+            <div class="home-features">
+
+                <div class="home-feature">
+                    <div class="check">✓</div>
+                    Raise and track support tickets
+                </div>
+
+                <div class="home-feature">
+                    <div class="check">✓</div>
+                    Follow ticket status and updates
+                </div>
+
+                <div class="home-feature">
+                    <div class="check">✓</div>
+                    Communicate with support agents
+                </div>
+
+                <div class="home-feature">
+                    <div class="check">✓</div>
+                    Secure role-based access
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RIGHT -->
+
+        <section class="home-right">
+
+            <div class="home-content">
+
+                <div class="home-icon">
+                    IT
+                </div>
+
+                <h2>
+                    Welcome
+                </h2>
+
+                <p>
+                    Sign in to your account or create a new
+                    employee account to get started.
+                </p>
+
+                <a
+                    href="{{ url_for('auth.login') }}"
+                    class="home-button home-button-primary"
+                >
+                    Sign In
+                </a>
+
+                <a
+                    href="{{ url_for('auth.register') }}"
+                    class="home-button home-button-secondary"
+                >
+                    Create Account
+                </a>
+
+                <div class="home-note">
+                    Secure IT service management portal
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

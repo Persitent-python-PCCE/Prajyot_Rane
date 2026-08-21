@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard | IT Service Desk</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        /* Navbar */
+
+        .navbar {
+            height: 70px;
+            padding: 0 35px;
+            background: #0f172a;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .role-badge {
+            background: rgba(59, 130, 246, 0.2);
+            color: #bfdbfe;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .logout {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .logout:hover {
+            color: white;
+        }
+
+        /* Main */
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 45px 25px;
+        }
+
+        .welcome {
+            margin-bottom: 35px;
+        }
+
+        .welcome h1 {
+            margin: 0 0 8px;
+            font-size: 34px;
+            color: #111827;
+        }
+
+        .welcome p {
+            margin: 0;
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        /* Cards */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 28px;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow:
+                0 8px 25px rgba(15, 23, 42, 0.05);
+
+            transition: 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 14px 30px rgba(15, 23, 42, 0.08);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: #eff6ff;
+            color: #2563eb;
+
+            font-size: 20px;
+            font-weight: 700;
+
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            margin: 0 0 10px;
+            font-size: 21px;
+            color: #111827;
+        }
+
+        .card p {
+            margin: 0 0 22px;
+            color: #64748b;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .button {
+            display: inline-block;
+
+            padding: 11px 18px;
+
+            border-radius: 9px;
+
+            background: #2563eb;
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.2s ease;
+        }
+
+        .button:hover {
+            background: #1d4ed8;
+        }
+
+        .button-secondary {
+            background: white;
+            color: #2563eb;
+            border: 1px solid #cbd5e1;
+        }
+
+        .button-secondary:hover {
+            background: #f8fafc;
+        }
+
+        /* Quick info */
+
+        .info-box {
+            margin-top: 30px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .info-box h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .info-box p {
+            margin: 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 800px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .nav-right {
+                gap: 12px;
+            }
+
+            .role-badge {
+                display: none;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            .container {
+                padding: 30px 15px;
+            }
+
+            .welcome h1 {
+                font-size: 28px;
+            }
+
+            .card {
+                padding: 22px;
+            }
+
+            .navbar {
+                height: 64px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="brand">
+        IT Service Desk
+    </div>
+
+    <div class="nav-right">
+
+        <span class="role-badge">
+            {{ role }}
+        </span>
+
+        <a
+            href="{{ url_for('auth.logout') }}"
+            class="logout"
+        >
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- MAIN -->
+
+<main class="container">
+
+    <section class="welcome">
+
+        <h1>
+            Welcome, {{ user_name }}
+        </h1>
+
+        <p>
+            Manage your IT support activities from your dashboard.
+        </p>
+
+    </section>
+
+
+    <!-- EMPLOYEE -->
+
+    {% if role == "EMPLOYEE" %}
+
+        <section class="cards">
+
+            <div class="card">
+
+                <div class="card-icon">
+                    +
+                </div>
+
+                <h2>
+                    Create Support Ticket
+                </h2>
+
+                <p>
+                    Report a hardware, software, network,
+                    email, or access issue to the IT support team.
+                </p>
+
+                <a
+                    href="{{ url_for('ticket.create_ticket') }}"
+                    class="button"
+                >
+                    Create Ticket
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    #
+                </div>
+
+                <h2>
+                    My Tickets
+                </h2>
+
+                <p>
+                    View your submitted tickets, check their
+                    current status, and follow support updates.
+                </p>
+
+                <a
+                    href="{{ url_for('ticket.my_tickets') }}"
+                    class="button"
+                >
+                    View My Tickets
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <div class="info-box">
+
+            <h3>
+                Need technical assistance?
+            </h3>
+
+            <p>
+                Create a ticket and provide as much information
+                as possible so the support team can resolve your
+                issue quickly.
+            </p>
+
+        </div>
+
+
+    <!-- SUPPORT AGENT -->
+
+    {% elif role == "SUPPORT_AGENT" %}
+
+        <section class="cards">
+
+            <div class="card">
+
+                <div class="card-icon">
+                    ✓
+                </div>
+
+                <h2>
+                    Agent Dashboard
+                </h2>
+
+                <p>
+                    View tickets assigned to you, investigate
+                    incidents, add comments, and update ticket status.
+                </p>
+
+                <a
+                    href="{{ url_for('agent.dashboard') }}"
+                    class="button"
+                >
+                    Open Agent Dashboard
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <div class="info-box">
+
+            <h3>
+                Support Agent
+            </h3>
+
+            <p>
+                Focus on your assigned incidents and keep ticket
+                information updated throughout the resolution process.
+            </p>
+
+        </div>
+
+
+    <!-- ADMIN -->
+
+    {% elif role == "ADMIN" %}
+
+        <section class="cards">
+
+            <div class="card">
+
+                <div class="card-icon">
+                    A
+                </div>
+
+                <h2>
+                    Admin Dashboard
+                </h2>
+
+                <p>
+                    Manage users, support agents, tickets,
+                    categories, priorities, and service reports.
+                </p>
+
+                <a
+                    href="#"
+                    class="button"
+                >
+                    Open Admin Dashboard
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <div class="info-box">
+
+            <h3>
+                Administration
+            </h3>
+
+            <p>
+                Use the administration tools to manage the IT
+                service desk and monitor service performance.
+            </p>
+
+        </div>
+
+
+    {% endif %}
+
+</main>
+
+</body>
+
+</html>
