@@ -1,10 +1,12 @@
+from flask import session
+
 from services.auth_service import AuthService
 
 
 class AuthController:
 
     @staticmethod
-    def register(name, email, password):
+    def register_user(name, email, password):
 
         if not name or not email or not password:
             return None, "All fields are required"
@@ -15,30 +17,31 @@ class AuthController:
         if len(password) < 6:
             return None, "Password must contain at least 6 characters"
 
-        user, error = AuthService.register_user(name, email, password)
-
-        if error:
-            return None, error
-
-        return user, None
+        return AuthService.register_user(name, email, password)
 
     @staticmethod
-    def login(email, password):
+    def login_user(email, password):
 
         if not email or not password:
             return None, "Email and password are required"
 
-        user = AuthService.login_user(email, password)
+        user, error = AuthService.login_user(email, password)
 
-        if not user:
-            return None, "Invalid email or password"
+        if error:
+            return None, error
+
+        session["user_id"] = user.id
+        session["user_name"] = user.name
+        session["role"] = user.role.name
 
         return user, None
 
     @staticmethod
-    def has_role(required_roles, current_role):
+    def logout_user():
 
-        if current_role not in required_roles:
-            return False
+        session.clear()
 
-        return True
+    @staticmethod
+    def has_role(roles, current_role):
+
+        return current_role in roles

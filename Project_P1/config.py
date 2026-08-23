@@ -1,22 +1,17 @@
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 
 class Config:
-    SECRET_KEY = os.getenv("SECRET_KEY")
 
-    JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
+    SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key")
 
-    SQLALCHEMY_DATABASE_URI = (
-        f"mysql+pymysql://"
-        f"{os.getenv('DB_USER')}:"
-        f"{os.getenv('DB_PASSWORD')}@"
-        f"{os.getenv('DB_HOST')}:"
-        f"{os.getenv('DB_PORT')}/"
-        f"{os.getenv('DB_NAME')}"
+    SQLALCHEMY_DATABASE_URI = os.getenv(
+        "DATABASE_URL", "mysql+pymysql://root:prajyot123@localhost/ProjectP1"
     )
 
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-SQLALCHEMY_TRACK_MODIFICATIONS = False
+    JWT_SECRET_KEY = os.getenv(
+        "JWT_SECRET_KEY", "devdajdsjldn11223fdskfdsknfamsdp12321"
+    )
+    JWT_ACCESS_TOKEN_EXPIRES = 3600

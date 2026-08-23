@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Agent Dashboard | IT Service Desk</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        .navbar {
+            height: 70px;
+            padding: 0 30px;
+            background: #0f172a;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .role-badge {
+            padding: 7px 12px;
+            border-radius: 20px;
+            background: rgba(59, 130, 246, 0.2);
+            color: #bfdbfe;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .logout {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 25px;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 34px;
+        }
+
+        .page-header p {
+            margin: 0;
+            color: #64748b;
+        }
+
+        .ticket-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 18px;
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+        }
+
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .ticket-title {
+            margin: 0 0 7px;
+            font-size: 21px;
+        }
+
+        .ticket-description {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .status-badge {
+            height: fit-content;
+            padding: 7px 13px;
+            border-radius: 20px;
+            background: #eff6ff;
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .ticket-details {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .detail-box {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 14px;
+        }
+
+        .detail-label {
+            display: block;
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .sla-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .sla-section h3 {
+            margin: 0 0 15px;
+            font-size: 17px;
+        }
+
+        .sla-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .sla-box {
+            padding: 15px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .sla-label {
+            display: block;
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+
+        .sla-time {
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .ticket-actions {
+            margin-top: 22px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .status-form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .status-form select {
+            height: 42px;
+            min-width: 190px;
+            padding: 0 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .status-button,
+        .view-button {
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .status-button {
+            border: none;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+        }
+
+        .view-button {
+            border: 1px solid #cbd5e1;
+            color: #2563eb;
+            background: white;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .pagination a,
+        .pagination span {
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            text-decoration: none;
+            color: #334155;
+            background: white;
+        }
+
+        .pagination a.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .empty {
+            background: white;
+            padding: 45px 25px;
+            text-align: center;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .empty h2 {
+            margin-bottom: 8px;
+        }
+
+        .empty p {
+            margin: 0;
+            color: #64748b;
+        }
+
+        @media (max-width: 900px) {
+
+            .ticket-details {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .sla-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                padding: 0 18px;
+            }
+
+            .role-badge {
+                display: none;
+            }
+
+            .container {
+                padding: 30px 15px;
+            }
+
+            .ticket-header {
+                flex-direction: column;
+            }
+
+            .ticket-details {
+                grid-template-columns: 1fr;
+            }
+
+            .status-form {
+                width: 100%;
+            }
+
+            .status-form select,
+            .status-button,
+            .view-button {
+                width: 100%;
+            }
+
+            .ticket-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="brand">
+        IT Service Desk
+    </div>
+
+    <div class="nav-right">
+
+        <span class="role-badge">
+            SUPPORT AGENT
+        </span>
+
+        <a
+            href="{{ url_for('auth.logout') }}"
+            class="logout"
+        >
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+<main class="container">
+
+    <div class="page-header">
+
+        <h1>
+            Agent Dashboard
+        </h1>
+
+        <p>
+            View and manage tickets assigned to you.
+        </p>
+
+    </div>
+
+    {% if assignments %}
+
+        {% for assignment in assignments %}
+
+            <div class="ticket-card">
+
+                <div class="ticket-header">
+
+                    <div>
+
+                        <h2 class="ticket-title">
+                            #{{ assignment.ticket.id }}
+                            —
+                            {{ assignment.ticket.title }}
+                        </h2>
+
+                        <div class="ticket-description">
+                            {{ assignment.ticket.description }}
+                        </div>
+
+                    </div>
+
+                    <span class="status-badge">
+                        {{ assignment.ticket.status }}
+                    </span>
+
+                </div>
+
+                <div class="ticket-details">
+
+                    <div class="detail-box">
+                        <span class="detail-label">
+                            Priority
+                        </span>
+                        <span class="detail-value">
+                            {{ assignment.ticket.priority }}
+                        </span>
+                    </div>
+
+                    <div class="detail-box">
+                        <span class="detail-label">
+                            Severity
+                        </span>
+                        <span class="detail-value">
+                            {{ assignment.ticket.severity }}
+                        </span>
+                    </div>
+
+                    <div class="detail-box">
+                        <span class="detail-label">
+                            Category
+                        </span>
+                        <span class="detail-value">
+                            {{ assignment.ticket.category.name }}
+                        </span>
+                    </div>
+
+                    <div class="detail-box">
+                        <span class="detail-label">
+                            Assigned At
+                        </span>
+                        <span class="detail-value">
+                            {{ assignment.assigned_at }}
+                        </span>
+                    </div>
+
+                </div>
+
+                <div class="sla-section">
+
+                    <h3>
+                        SLA Information
+                    </h3>
+
+                    <div class="sla-grid">
+
+                        <div class="sla-box">
+
+                            <span class="sla-label">
+                                Response Deadline
+                            </span>
+
+                            <span class="sla-time">
+
+                                {% if assignment.ticket.response_due_at %}
+                                    {{ assignment.ticket.response_due_at }}
+                                {% else %}
+                                    Not available
+                                {% endif %}
+
+                            </span>
+
+                        </div>
+
+                        <div class="sla-box">
+
+                            <span class="sla-label">
+                                Resolution Deadline
+                            </span>
+
+                            <span class="sla-time">
+
+                                {% if assignment.ticket.resolution_due_at %}
+                                    {{ assignment.ticket.resolution_due_at }}
+                                {% else %}
+                                    Not available
+                                {% endif %}
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="ticket-actions">
+
+                    <form
+                        method="POST"
+                        action="{{ url_for(
+                            'agent.change_status',
+                            ticket_id=assignment.ticket.id
+                        ) }}"
+                        class="status-form"
+                    >
+
+                        <select
+                            name="status"
+                            required
+                        >
+
+                            {% if assignment.ticket.status == "Assigned" %}
+
+                                <option value="In Progress">
+                                    In Progress
+                                </option>
+
+                            {% elif assignment.ticket.status == "In Progress" %}
+
+                                <option value="Resolved">
+                                    Resolved
+                                </option>
+
+                            {% elif assignment.ticket.status == "Resolved" %}
+
+                                <option value="Closed">
+                                    Closed
+                                </option>
+
+                            {% endif %}
+
+                        </select>
+
+                        <button
+                            type="submit"
+                            class="status-button"
+                        >
+                            Update Status
+                        </button>
+
+                    </form>
+
+                    <a
+                        href="{{ url_for(
+                            'ticket.ticket_details',
+                            ticket_id=assignment.ticket.id
+                        ) }}"
+                        class="view-button"
+                    >
+                        View Ticket
+                    </a>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+        {% if pagination.pages > 1 %}
+
+            <div class="pagination">
+
+                {% if pagination.has_prev %}
+
+                    <a
+                        href="{{ url_for(
+                            'agent.dashboard',
+                            page=pagination.prev_num
+                        ) }}"
+                    >
+                        ← Previous
+                    </a>
+
+                {% endif %}
+
+                {% for page_num in pagination.iter_pages() %}
+
+                    {% if page_num %}
+
+                        <a
+                            href="{{ url_for(
+                                'agent.dashboard',
+                                page=page_num
+                            ) }}"
+                            {% if page_num == pagination.page %}
+                                class="active"
+                            {% endif %}
+                        >
+                            {{ page_num }}
+                        </a>
+
+                    {% else %}
+
+                        <span>...</span>
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {% if pagination.has_next %}
+
+                    <a
+                        href="{{ url_for(
+                            'agent.dashboard',
+                            page=pagination.next_num
+                        ) }}"
+                    >
+                        Next →
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+    {% else %}
+
+        <div class="empty">
+
+            <h2>
+                No Assigned Tickets
+            </h2>
+
+            <p>
+                You currently have no tickets assigned to you.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</main>
+
+</body>
+
+</html>

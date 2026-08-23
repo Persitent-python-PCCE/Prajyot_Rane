@@ -22,8 +22,20 @@ class TicketAssignmentService:
         if not agent:
             return None, "Agent not found"
 
-        if not agent.role or agent.role.name != "SUPPORT_AGENT":
+        if not agent.role:
+            return None, "User role not found"
+
+        if agent.role.name != "SUPPORT_AGENT":
             return None, "Selected user is not a support agent"
+
+        if not agent.is_active:
+            return None, "Selected support agent is inactive"
+
+        current_assignment = TicketAssignmentDAO.find_current_assignment(ticket_id)
+
+        if current_assignment:
+            if current_assignment.agent_id == agent_id:
+                return None, "Ticket is already assigned to this agent"
 
         assignment = TicketAssignment(
             ticket_id=ticket_id, agent_id=agent_id, assigned_by=assigned_by
@@ -32,6 +44,7 @@ class TicketAssignmentService:
         TicketAssignmentDAO.save(assignment)
 
         old_status = ticket.status
+
         ticket.status = "Assigned"
 
         TicketDAO.update(ticket)

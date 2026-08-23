@@ -30,9 +30,8 @@ class TicketController:
         return ticket, None
 
     @staticmethod
-    def get_user_tickets(user_id):
-
-        return TicketService.get_user_tickets(user_id)
+    def get_user_tickets(user_id, page=1, per_page=10):
+        return TicketService.get_user_tickets(user_id, page=page, per_page=per_page)
 
     @staticmethod
     def get_ticket(ticket_id):

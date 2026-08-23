@@ -17,3 +17,10 @@ class TicketHistoryDAO:
             .order_by(TicketHistory.created_at.asc())
             .all()
         )
+
+    @staticmethod
+    def exists_for_action(ticket_id, action):
+        return (
+            TicketHistory.query.filter_by(ticket_id=ticket_id, action=action).first()
+            is not None
+        )

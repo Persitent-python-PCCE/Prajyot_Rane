@@ -1,4 +1,5 @@
 from dao.ticket_dao import TicketDAO
+
 from services.ticket_history_service import TicketHistoryService
 
 
@@ -19,11 +20,14 @@ class TicketStatusService:
         if not ticket:
             return None, "Ticket not found"
 
+        if not new_status:
+            return None, "Status is required"
+
         old_status = ticket.status
 
-        allowed = TicketStatusService.allowed_transitions.get(old_status, [])
+        allowed_statuses = TicketStatusService.allowed_transitions.get(old_status, [])
 
-        if new_status not in allowed:
+        if new_status not in allowed_statuses:
             return (
                 None,
                 f"Invalid status transition: " f"{old_status} -> {new_status}",

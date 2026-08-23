@@ -10,173 +10,1144 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Ticket Details</title>
+    <title>Ticket Details | IT Service Desk</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        .navbar {
+            height: 70px;
+            padding: 0 30px;
+            background: #0f172a;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .role {
+            color: #cbd5e1;
+            font-size: 13px;
+        }
+
+        .logout {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .logout:hover {
+            color: #93c5fd;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 35px 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 22px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            color: #1d4ed8;
+        }
+
+        .header-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 22px;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .header-top h1 {
+            margin: 0 0 10px;
+            font-size: 30px;
+            line-height: 1.25;
+            color: #111827;
+        }
+
+        .description {
+            color: #64748b;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .status {
+            height: fit-content;
+            padding: 8px 14px;
+            border-radius: 20px;
+            background: #eff6ff;
+            color: #2563eb;
+            font-weight: 700;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .detail {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .detail-label {
+            display: block;
+            color: #64748b;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: #111827;
+            font-size: 14px;
+        }
+
+        .section {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 22px;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+        }
+
+        .section h2 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 21px;
+            color: #111827;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .info-box {
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #f8fafc;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 6px;
+            color: #111827;
+        }
+
+        .muted {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* COMMENTS */
+
+        .comment {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
+            background: #fafafa;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 8px;
+        }
+
+        .comment-user {
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .comment-time {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .comment-text {
+            line-height: 1.6;
+            color: #374151;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            resize: vertical;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+        }
+
+        .button {
+            border: none;
+            padding: 11px 18px;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            background: #1d4ed8;
+        }
+
+        /* ATTACHMENTS */
+
+        .attachment {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 14px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            background: #fafafa;
+        }
+
+        .attachment-name {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .attachment-size {
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .download {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+            white-space: nowrap;
+            font-size: 13px;
+        }
+
+        .download:hover {
+            color: #1d4ed8;
+        }
+
+        /* HISTORY */
+
+        .history-item {
+            border-left: 3px solid #2563eb;
+            padding: 10px 0 10px 16px;
+            margin-bottom: 14px;
+        }
+
+        .history-action {
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .history-meta {
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        /* FEEDBACK */
+
+        .feedback-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .rating {
+            font-size: 25px;
+            color: #f59e0b;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .feedback-card p {
+            margin: 0 0 12px;
+            line-height: 1.6;
+            color: #374151;
+        }
+
+        .rating-input {
+            margin-bottom: 22px;
+        }
+
+        .rating-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #172033;
+        }
+
+        .stars {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            width: fit-content;
+            gap: 4px;
+        }
+
+        .stars input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .stars label {
+            font-size: 38px;
+            line-height: 1;
+            color: #cbd5e1;
+            cursor: pointer;
+            transition: 0.18s ease;
+        }
+
+        .stars label:hover,
+        .stars label:hover ~ label {
+            color: #f59e0b;
+            transform: scale(1.05);
+        }
+
+        .stars input:checked ~ label {
+            color: #f59e0b;
+        }
+
+        .rating-hint {
+            margin-top: 8px;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #172033;
+        }
+
+        /* STATUS FORM */
+
+        .status-form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .status-form select {
+            min-width: 210px;
+            height: 44px;
+            padding: 0 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background: white;
+            color: #172033;
+        }
+
+        .status-form select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+
+            .details-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                padding: 0 18px;
+            }
+
+            .role {
+                display: none;
+            }
+
+            .container {
+                padding: 25px 15px;
+            }
+
+            .header-top {
+                flex-direction: column;
+            }
+
+            .details-grid,
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .attachment {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .status-form {
+                flex-direction: column;
+            }
+
+            .status-form select,
+            .status-form .button {
+                width: 100%;
+            }
+
+        }
+
+    </style>
 
 </head>
 
 <body>
 
-<div style="max-width: 900px; margin: 40px auto;">
+<nav class="navbar">
 
-    <a href="{{ url_for('ticket.my_tickets') }}">
-        ← Back to My Tickets
-    </a>
+    <div class="brand">
+        IT Service Desk
+    </div>
 
-    <h1>{{ ticket.title }}</h1>
+    <div class="nav-right">
 
-    <p>
-        {{ ticket.description }}
-    </p>
+        <span class="role">
+            {{ session["role"] }}
+        </span>
 
-    <hr>
+        <a
+            href="{{ url_for('auth.logout') }}"
+            class="logout"
+        >
+            Logout
+        </a>
 
-    <h2>Ticket Information</h2>
+    </div>
 
-    <p>
-        <strong>Status:</strong>
-        {{ ticket.status }}
-    </p>
+</nav>
 
-    <p>
-        <strong>Priority:</strong>
-        {{ ticket.priority }}
-    </p>
 
-    <p>
-        <strong>Severity:</strong>
-        {{ ticket.severity }}
-    </p>
+<main class="container">
 
-    <p>
-        <strong>Category:</strong>
-        {{ ticket.category.name }}
-    </p>
+    {% if session.get("role") == "SUPPORT_AGENT" %}
 
-    <p>
-        <strong>Created:</strong>
-        {{ ticket.created_at }}
-    </p>
+        <a
+            href="{{ url_for('agent.dashboard') }}"
+            class="back-link"
+        >
+            ← Back to Assigned Tickets
+        </a>
 
-    <hr>
+    {% elif session.get("role") == "ADMIN" %}
 
-    <h2>Comments</h2>
-
-    {% if ticket.comments %}
-
-        {% for comment in ticket.comments %}
-
-            <div style="
-                border: 1px solid #ddd;
-                padding: 15px;
-                margin-bottom: 12px;
-                border-radius: 8px;
-            ">
-
-                <p>
-                    <strong>
-                        {{ comment.user.name }}
-                    </strong>
-                </p>
-
-                <p>
-                    {{ comment.comment }}
-                </p>
-
-                <small>
-                    {{ comment.created_at }}
-                </small>
-
-            </div>
-
-        {% endfor %}
+        <a
+            href="{{ url_for('admin.dashboard') }}"
+            class="back-link"
+        >
+            ← Back to Dashboard
+        </a>
 
     {% else %}
 
-        <p>No comments yet.</p>
+        <a
+            href="{{ url_for('ticket.my_tickets') }}"
+            class="back-link"
+        >
+            ← Back to My Tickets
+        </a>
 
     {% endif %}
 
-    <h3>Add Comment</h3>
 
-    <form
-        method="POST"
-        action="{{ url_for(
-            'comment.add_comment',
-            ticket_id=ticket.id
-        ) }}"
-    >
+    <section class="header-card">
 
-        <textarea
-            name="comment"
-            rows="5"
-            cols="60"
-            placeholder="Write your comment..."
-            required
-        ></textarea>
+        <div class="header-top">
 
-        <br><br>
+            <div>
 
-        <button type="submit">
-            Add Comment
-        </button>
+                <h1>
+                    #{{ ticket.id }} — {{ ticket.title }}
+                </h1>
 
-    </form>
+                <div class="description">
+                    {{ ticket.description }}
+                </div>
 
-    <hr>
+            </div>
 
-    <h2>Update Status</h2>
+            <span class="status">
+                {{ ticket.status }}
+            </span>
 
-    <form
-        method="POST"
-        action="{{ url_for(
-            'agent.change_status',
-            ticket_id=ticket.id
-        ) }}"
-    >
+        </div>
 
-        <select name="status" required>
 
-            {% if ticket.status == "Open" %}
+        <div class="details-grid">
 
-                <option value="Assigned">
-                    Assigned
-                </option>
+            <div class="detail">
 
-            {% elif ticket.status == "Assigned" %}
+                <span class="detail-label">
+                    Priority
+                </span>
 
-                <option value="In Progress">
-                    In Progress
-                </option>
+                <span class="detail-value">
+                    {{ ticket.priority }}
+                </span>
 
-            {% elif ticket.status == "In Progress" %}
+            </div>
 
-                <option value="Resolved">
-                    Resolved
-                </option>
 
-            {% elif ticket.status == "Resolved" %}
+            <div class="detail">
 
-                <option value="Closed">
-                    Closed
-                </option>
+                <span class="detail-label">
+                    Severity
+                </span>
 
-            {% else %}
+                <span class="detail-value">
+                    {{ ticket.severity }}
+                </span>
 
-                <option>
-                    No further status changes
-                </option>
+            </div>
 
-            {% endif %}
 
-        </select>
+            <div class="detail">
 
-        <button type="submit">
-            Update Status
-        </button>
+                <span class="detail-label">
+                    Category
+                </span>
 
-    </form>
+                <span class="detail-value">
+                    {{ ticket.category.name }}
+                </span>
 
-</div>
+            </div>
+
+
+            <div class="detail">
+
+                <span class="detail-label">
+                    Created
+                </span>
+
+                <span class="detail-value">
+                    {{ ticket.created_at }}
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="section">
+
+        <h2>
+            Assignment & SLA
+        </h2>
+
+
+        <div class="info-grid">
+
+            <div class="info-box">
+
+                <strong>
+                    Requester
+                </strong>
+
+                <span>
+                    {{ ticket.requester.name }}
+                </span>
+
+                <div class="muted">
+                    {{ ticket.requester.email }}
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <strong>
+                    Assigned Agent
+                </strong>
+
+                {% if ticket.current_assignment %}
+
+                    <span>
+                        {{ ticket.current_assignment.agent.name }}
+                    </span>
+
+                    <div class="muted">
+                        Assigned:
+                        {{ ticket.current_assignment.assigned_at }}
+                    </div>
+
+                {% else %}
+
+                    <span class="muted">
+                        Unassigned
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="info-box">
+
+                <strong>
+                    Response Deadline
+                </strong>
+
+                {% if ticket.response_due_at %}
+
+                    <span>
+                        {{ ticket.response_due_at }}
+                    </span>
+
+                {% else %}
+
+                    <span class="muted">
+                        Not available
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="info-box">
+
+                <strong>
+                    Resolution Deadline
+                </strong>
+
+                {% if ticket.resolution_due_at %}
+
+                    <span>
+                        {{ ticket.resolution_due_at }}
+                    </span>
+
+                {% else %}
+
+                    <span class="muted">
+                        Not available
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    {% if session["role"] == "SUPPORT_AGENT"
+        or session["role"] == "ADMIN" %}
+
+        <section class="section">
+
+            <h2>
+                Update Status
+            </h2>
+
+            <form
+                method="POST"
+                action="{{ url_for(
+                    'agent.change_status',
+                    ticket_id=ticket.id
+                ) }}"
+                class="status-form"
+            >
+
+                <select
+                    name="status"
+                    required
+                >
+
+                    {% if ticket.status == "Assigned" %}
+
+                        <option value="In Progress">
+                            In Progress
+                        </option>
+
+                    {% elif ticket.status == "In Progress" %}
+
+                        <option value="Resolved">
+                            Resolved
+                        </option>
+
+                    {% elif ticket.status == "Resolved" %}
+
+                        <option value="Closed">
+                            Closed
+                        </option>
+
+                    {% endif %}
+
+                </select>
+
+                <button
+                    type="submit"
+                    class="button"
+                >
+                    Update Status
+                </button>
+
+            </form>
+
+        </section>
+
+    {% endif %}
+
+
+    <section class="section">
+
+        <h2>
+            Comments
+        </h2>
+
+
+        {% if ticket.comments %}
+
+            {% for comment in ticket.comments %}
+
+                <div class="comment">
+
+                    <div class="comment-header">
+
+                        <span class="comment-user">
+                            {{ comment.user.name }}
+                        </span>
+
+                        <span class="comment-time">
+                            {{ comment.created_at }}
+                        </span>
+
+                    </div>
+
+                    <div class="comment-text">
+                        {{ comment.comment }}
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="muted">
+                No comments yet.
+            </p>
+
+        {% endif %}
+
+
+        <form
+            method="POST"
+            action="{{ url_for(
+                'comment.add_comment',
+                ticket_id=ticket.id
+            ) }}"
+        >
+
+            <textarea
+                name="comment"
+                placeholder="Write a comment..."
+                required
+            ></textarea>
+
+            <button
+                type="submit"
+                class="button"
+            >
+                Add Comment
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <section class="section">
+
+        <h2>
+            Attachments
+        </h2>
+
+
+        {% if ticket.attachments %}
+
+            {% for attachment in ticket.attachments %}
+
+                <div class="attachment">
+
+                    <div>
+
+                        <div class="attachment-name">
+                            {{ attachment.filename }}
+                        </div>
+
+                        <div class="attachment-size">
+
+                            {{ (attachment.file_size / 1024)|round(1) }}
+                            KB
+
+                        </div>
+
+                    </div>
+
+                    <a
+                        href="{{ url_for(
+                            'attachment.download_attachment',
+                            attachment_id=attachment.id
+                        ) }}"
+                        class="download"
+                    >
+                        Download
+                    </a>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="muted">
+                No attachments yet.
+            </p>
+
+        {% endif %}
+
+
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+            action="{{ url_for(
+                'attachment.upload_attachment',
+                ticket_id=ticket.id
+            ) }}"
+        >
+
+            <input
+                type="file"
+                name="file"
+                required
+            >
+
+            <br>
+
+            <button
+                type="submit"
+                class="button"
+            >
+                Upload Attachment
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <section class="section">
+
+        <h2>
+            Ticket History
+        </h2>
+
+
+        {% if ticket.history %}
+
+            {% for entry in ticket.history %}
+
+                <div class="history-item">
+
+                    <div class="history-action">
+                        {{ entry.action }}
+                    </div>
+
+                    {% if entry.old_value or entry.new_value %}
+
+                        <div class="muted">
+
+                            {{ entry.old_value or "—" }}
+                            →
+                            {{ entry.new_value or "—" }}
+
+                        </div>
+
+                    {% endif %}
+
+                    <div class="history-meta">
+
+                        User ID: {{ entry.user_id }}
+                        ·
+                        {{ entry.created_at }}
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="muted">
+                No history available.
+            </p>
+
+        {% endif %}
+
+    </section>
+
+
+    {% if ticket.feedback %}
+
+        <section class="section">
+
+            <h2>
+                Employee Feedback
+            </h2>
+
+            <div class="feedback-card">
+
+                <div class="rating">
+
+                    {% for i in range(ticket.feedback.rating) %}
+                        ★
+                    {% endfor %}
+
+                    {% for i in range(5 - ticket.feedback.rating) %}
+                        ☆
+                    {% endfor %}
+
+                </div>
+
+                {% if ticket.feedback.comment %}
+
+                    <p>
+                        {{ ticket.feedback.comment }}
+                    </p>
+
+                {% endif %}
+
+                <div class="muted">
+                    Submitted {{ ticket.feedback.created_at }}
+                </div>
+
+            </div>
+
+        </section>
+
+    {% elif session["role"] == "EMPLOYEE"
+        and ticket.requester_id == session["user_id"]
+        and ticket.status in ["Resolved", "Closed"] %}
+
+        <section class="section">
+
+            <h2>
+                Submit Feedback
+            </h2>
+
+            <form
+                method="POST"
+                action="{{ url_for(
+                    'feedback.create_feedback',
+                    ticket_id=ticket.id
+                ) }}"
+            >
+
+                <div class="rating-input">
+
+                    <label class="rating-label">
+                        How would you rate the support you received?
+                    </label>
+
+                    <div class="stars">
+
+                        <input
+                            type="radio"
+                            id="rating-5"
+                            name="rating"
+                            value="5"
+                            required
+                        >
+
+                        <label
+                            for="rating-5"
+                            title="Excellent"
+                        >
+                            ★
+                        </label>
+
+
+                        <input
+                            type="radio"
+                            id="rating-4"
+                            name="rating"
+                            value="4"
+                        >
+
+                        <label
+                            for="rating-4"
+                            title="Good"
+                        >
+                            ★
+                        </label>
+
+
+                        <input
+                            type="radio"
+                            id="rating-3"
+                            name="rating"
+                            value="3"
+                        >
+
+                        <label
+                            for="rating-3"
+                            title="Average"
+                        >
+                            ★
+                        </label>
+
+
+                        <input
+                            type="radio"
+                            id="rating-2"
+                            name="rating"
+                            value="2"
+                        >
+
+                        <label
+                            for="rating-2"
+                            title="Poor"
+                        >
+                            ★
+                        </label>
+
+
+                        <input
+                            type="radio"
+                            id="rating-1"
+                            name="rating"
+                            value="1"
+                        >
+
+                        <label
+                            for="rating-1"
+                            title="Very Poor"
+                        >
+                            ★
+                        </label>
+
+                    </div>
+
+                    <div class="rating-hint">
+                        Select a rating from 1 to 5
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="feedback-comment">
+                        Comment
+                    </label>
+
+                    <textarea
+                        id="feedback-comment"
+                        name="comment"
+                        rows="4"
+                        placeholder="Tell us about your experience..."
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="button"
+                >
+                    Submit Feedback
+                </button>
+
+            </form>
+
+        </section>
+
+    {% endif %}
+
+
+</main>
 
 </body>
 

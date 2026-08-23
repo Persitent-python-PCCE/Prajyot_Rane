@@ -31,6 +31,7 @@ class AuthService:
             email=email,
             password=hashed_password,
             role_id=employee_role.id,
+            is_active=True,
         )
 
         UserDAO.save(user)
@@ -45,9 +46,12 @@ class AuthService:
         user = UserDAO.find_by_email(email)
 
         if not user:
-            return None
+            return None, "Invalid email or password"
+
+        if not user.is_active:
+            return None, "Account is inactive"
 
         if bcrypt.checkpw(password.encode("utf-8"), user.password.encode("utf-8")):
-            return user
+            return user, None
 
-        return None
+        return None, "Invalid email or password"
