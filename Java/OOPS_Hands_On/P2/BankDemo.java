@@ -1,4 +1,4 @@
-public class Account {
+class Account {
     protected String accountNumber;
     protected String holderName;
     protected double balance;
@@ -12,13 +12,14 @@ public class Account {
     // ---- Overloaded deposit methods ----
     public void deposit(double amount) {
         this.balance+=amount;
+        System.out.println("Deposit successful."+accountNumber+ "balance:"+balance);
     }
  
     public void deposit(double amount, String mode) {
         if (amount>0)
         {   
             this.balance+=amount;
-            System.out.printf("Deposit via <mode> successful. <accNo> balance: <bal>");
+            System.out.printf("Deposit via"+mode+" successful."+accountNumber+" balance: "+balance+"\n");
         }
     }
  
@@ -26,10 +27,8 @@ public class Account {
          if (amount>0)
         {
             this.balance+=amount;
-            System.out.printf("Deposit via <mode> successful. <accNo> balance: <bal>");
-        }
-        System.out.printf("Deposit via <mode> (Ref: <ref>) successful. ...");
-    
+            System.out.printf("Deposit via"+mode+" successful."+accountNumber+" balance: "+balance+"Reference"+reference+"\n");
+        }    
     }
  
     // ---- Methods intended to be overridden ----
@@ -47,7 +46,7 @@ public class Account {
     }
  
     public void displayDetails() {
-        System.out.printf("AccountNo:%s Holdername:%s Balance:%s"+accountNumber,holderName,balance);
+        System.out.printf("AccountNo:%s Holdername:%s Balance:%s \n"+accountNumber,holderName,balance);
     }
 }
 
@@ -71,20 +70,22 @@ class SavingsAccount extends Account {
         }
         else
         {
-            System.out.println("Withdrawal denied. Minimum balance of <min> must be maintained.");
+            System.out.println("Withdrawal denied. Minimum balance of"+minBalance+" must be maintained.\n");
             return false;
         }
     }
  
     @Override
     public double calculateInterest() {
-        return balance * interestRate / 100;
+        double intres= balance * interestRate / 100;
+        System.out.println("Interest for"+accountNumber+":"+intres);
+        return intres;
     }
  
     @Override
     public void displayDetails() {
         // TODO: print with Type=Savings and minBalance
-        System.out.println("Account:"+accountNumber+" Holder:"+holderName+"Balance:"+holderName+ "| Type: Savings | Min Balance: 1000.0");
+        System.out.println("Account:"+accountNumber+" Holder:"+holderName+"Balance:"+balance+ "| Type: Savings | Min Balance: 1000.0\n");
     }
 }
 
@@ -103,7 +104,7 @@ class CurrentAccount extends Account {
         if (balance - amount >= -overdraftLimit)
         {
             balance-=amount;
-            System.out.println("overdraft used");
+            System.out.println("overdraft used"+accountNumber+"balance:"+balance);
 
         }
         //       print "Withdrawal successful (overdraft used)." when balance goes negative
@@ -121,7 +122,7 @@ class CurrentAccount extends Account {
     @Override
     public void displayDetails() {
         // TODO: print with Type=Current and overdraftLimit
-        System.out.println("Account:"+accountNumber+" Holder:"+holderName+"Balance:"+holderName+ "| Type: Current | Overfraft Limit:"+overdraftLimit);
+        System.out.println("Account:"+accountNumber+" Holder:"+holderName+"Balance:"+balance+ "| Type: Current | Overfraft Limit:"+overdraftLimit);
     }
 }
 
@@ -129,7 +130,7 @@ class BankDemo {
     public static void main(String[] args) {
 
         SavingsAccount acc1=new SavingsAccount("SB001", "Arul",5000);
-        CurrentAccount acc2=new CurrentAccount("CA  001", "Priya",20000);
+        CurrentAccount acc2=new CurrentAccount("CA001", "Priya",20000);
         acc1.deposit(2000);
         acc2.deposit(5000,"UPI");
         acc1.deposit(3000,"Cheque","CHQ12345");
@@ -139,9 +140,10 @@ class BankDemo {
         acc2.withdraw(30000);
 
         acc1.calculateInterest();
-        acc1.displayDetails();
         acc2.calculateInterest();
+        acc1.displayDetails();
         acc2.displayDetails();
+        
 
         // TODO:
         // 1. Create one SavingsAccount and one CurrentAccount.
