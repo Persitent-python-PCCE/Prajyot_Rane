@@ -60,4 +60,37 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+            emailext(
+                subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+Build successful!
+
+Job: ${env.JOB_NAME}
+Build: #${env.BUILD_NUMBER}
+Docker Image: ${env.DOCKER_IMAGE}:${env.IMAGE_TAG}
+Jenkins URL: ${env.BUILD_URL}
+""",
+                to: "YOUR_EMAIL@gmail.com"
+            )
+        }
+
+        failure {
+            emailext(
+                subject: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+Build failed!
+
+Job: ${env.JOB_NAME}
+Build: #${env.BUILD_NUMBER}
+Jenkins URL: ${env.BUILD_URL}
+
+Please check the Jenkins console output for details.
+""",
+                to: "YOUR_EMAIL@gmail.com"
+            )
+        }
+    }
 }
