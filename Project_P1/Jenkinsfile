@@ -19,7 +19,7 @@ pipeline {
         stage('Test') {
             steps {
                 dir('Project_P1') {
-                    bat 'pytest'
+                    bat '"C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest'
                 }
             }
         }
