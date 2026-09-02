@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'prajyotrane111/flask-app'
         IMAGE_TAG = "${BUILD_NUMBER}"
+        DATABASE_URL = 'mysql+pymysql://root:root@mysql-ci:3306/ProjectP1'
     }
 
     stages {
@@ -21,7 +22,10 @@ pipeline {
         stage('Test') {
             steps {
                 dir('Project_P1') {
-                    sh '.venv/bin/python -m pytest'
+                    sh '''
+                        export DATABASE_URL="$DATABASE_URL"
+                        .venv/bin/python -m pytest
+                    '''
                 }
             }
         }
