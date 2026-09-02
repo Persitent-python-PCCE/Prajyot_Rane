@@ -11,9 +11,9 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 dir('Project_P1') {
-                    bat '"C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m venv .venv'
-                    bat '".venv\\Scripts\\python.exe" -m pip install --upgrade pip'
-                    bat '".venv\\Scripts\\python.exe" -m pip install -r requirements.txt'
+                    sh 'python3 -m venv .venv'
+                    sh '.venv/bin/python -m pip install --upgrade pip'
+                    sh '.venv/bin/python -m pip install -r requirements.txt'
                 }
             }
         }
@@ -21,7 +21,7 @@ pipeline {
         stage('Test') {
             steps {
                 dir('Project_P1') {
-                    bat '".venv\\Scripts\\python.exe" -m pytest'
+                    sh '.venv/bin/python -m pytest'
                 }
             }
         }
@@ -29,7 +29,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 dir('Project_P1') {
-                    bat 'docker build -t %DOCKER_IMAGE%:%IMAGE_TAG% .'
+                    sh 'docker build -t $DOCKER_IMAGE:$IMAGE_TAG .'
                 }
             }
         }
@@ -43,9 +43,13 @@ pipeline {
                         passwordVariable: 'DOCKER_PASS'
                     )
                 ]) {
-                    bat '''
-                        echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
-                        docker push %DOCKER_IMAGE%:%IMAGE_TAG%
+                    sh '''
+                        echo "$DOCKER_PASS" | docker login \
+                            -u "$DOCKER_USER" \
+                            --password-stdin
+
+                        docker push "$DOCKER_IMAGE:$IMAGE_TAG"
+
                         docker logout
                     '''
                 }
