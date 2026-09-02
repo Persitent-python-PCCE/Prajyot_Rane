@@ -11,7 +11,9 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 dir('Project_P1') {
-                    bat '"C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pip install -r requirements.txt'
+                    bat '"C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m venv .venv'
+                    bat '".venv\\Scripts\\python.exe" -m pip install --upgrade pip'
+                    bat '".venv\\Scripts\\python.exe" -m pip install -r requirements.txt'
                 }
             }
         }
@@ -19,7 +21,7 @@ pipeline {
         stage('Test') {
             steps {
                 dir('Project_P1') {
-                    bat '"C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest'
+                    bat '".venv\\Scripts\\python.exe" -m pytest'
                 }
             }
         }
