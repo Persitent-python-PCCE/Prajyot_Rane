@@ -11,7 +11,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 dir('Project_P1') {
-                    bat 'python -m pip install -r requirements.txt'
+                    bat '"C:\\Users\\ASUS\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pip install -r requirements.txt'
                 }
             }
         }
