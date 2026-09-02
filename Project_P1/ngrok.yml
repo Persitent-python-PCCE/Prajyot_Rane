@@ -1,0 +1,12 @@
+version: 3
+
+endpoints:
+  - name: flask
+    upstream:
+      url: http://localhost:3000
+
+  - name: jenkins
+    upstream:
+      url: http://localhost:8080
+
+      ##test
