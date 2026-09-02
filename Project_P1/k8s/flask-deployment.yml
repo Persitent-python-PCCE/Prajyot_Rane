@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: flask-deployment
+  namespace: servicedesk
+
+spec:
+  replicas: 3
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+
+  selector:
+    matchLabels:
+      app: flask
+
+  template:
+    metadata:
+      labels:
+        app: flask
+
+    spec:
+      containers:
+        - name: flask
+          image: prajyotrane111/flask-app:v2
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 3000
+
+          # Self-healing:
+          # Kubernetes restarts the container if this fails
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+          # Traffic is sent only when this succeeds
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: DATABASE_URL
+
+            - name: DEPLOYMENT_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DEPLOYMENT_ENV

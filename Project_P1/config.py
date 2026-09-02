@@ -15,3 +15,8 @@ class Config:
         "JWT_SECRET_KEY", "devdajdsjldn11223fdskfdsknfamsdp12321"
     )
     JWT_ACCESS_TOKEN_EXPIRES = 3600
+
+
+OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434")
+
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3.2")
