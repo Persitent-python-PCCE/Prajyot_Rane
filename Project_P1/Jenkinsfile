@@ -38,27 +38,27 @@ pipeline {
             }
         }
 
-        stage('Push to Docker Hub') {
-            steps {
-                withCredentials([
-                    usernamePassword(
-                        credentialsId: 'prajotDocker',
-                        usernameVariable: 'DOCKER_USER',
-                        passwordVariable: 'DOCKER_PASS'
-                    )
-                ]) {
-                    sh '''
-                        echo "$DOCKER_PASS" | docker login \
-                            -u "$DOCKER_USER" \
-                            --password-stdin
+       stage('Push to Docker Hub') {
+    steps {
+        withCredentials([
+            usernamePassword(
+                credentialsId: 'prajotDocker',
+                usernameVariable: 'DOCKER_USER',
+                passwordVariable: 'DOCKER_PASS'
+            )
+        ]) {
+            bat '''
+                echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
+                if errorlevel 1 exit /b 1
 
-                        docker push "$DOCKER_IMAGE:$IMAGE_TAG"
+                docker push %DOCKER_IMAGE%:%IMAGE_TAG%
+                if errorlevel 1 exit /b 1
 
-                        docker logout
-                    '''
-                }
-            }
+                docker logout
+            '''
         }
+    }
+}
     }
 
     post {
@@ -73,7 +73,7 @@ Build: #${env.BUILD_NUMBER}
 Docker Image: ${env.DOCKER_IMAGE}:${env.IMAGE_TAG}
 Jenkins URL: ${env.BUILD_URL}
 """,
-                to: "YOUR_EMAIL@gmail.com"
+                to: "prajyotrane111@gmail.com"
             )
         }
 
@@ -89,7 +89,7 @@ Jenkins URL: ${env.BUILD_URL}
 
 Please check the Jenkins console output for details.
 """,
-                to: "YOUR_EMAIL@gmail.com"
+                to: "prajyotrane111@gmail.com"
             )
         }
     }
